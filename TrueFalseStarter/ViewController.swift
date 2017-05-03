@@ -23,6 +23,7 @@ class ViewController: UIViewController {
     let questionsAndAnswers = QuestionsAndAnswers()
     
     
+    @IBOutlet weak var correction: UILabel! // to show the correct answer if the user chose the wrong answer
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
     @IBOutlet weak var option1: UIButton!
@@ -53,6 +54,7 @@ class ViewController: UIViewController {
         option3.setTitle(questionDictionary["option3"], for: UIControlState.normal)
         option4.setTitle(questionDictionary["option4"], for: UIControlState.normal)
         playAgainButton.isHidden = true
+        correction.isHidden = true
     }
     
     func displayScore() {
@@ -64,6 +66,7 @@ class ViewController: UIViewController {
         
         // Display play again button
         playAgainButton.isHidden = false
+        correction.isHidden = true
         
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
         
@@ -77,6 +80,7 @@ class ViewController: UIViewController {
         let selectedQuestionDict = questionsAndAnswers.getQuestionAndAnswer()
         let correctAnswer = selectedQuestionDict["Answer"]
         
+        
         switch sender{
             
             case option1:
@@ -85,6 +89,7 @@ class ViewController: UIViewController {
                     questionField.text = "Correct!"
                 } else{
                     questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer!)
                 }
             case option2:
                 if(correctAnswer == selectedQuestionDict["option2"]){
@@ -92,6 +97,8 @@ class ViewController: UIViewController {
                     questionField.text = "Correct!"
                 } else{
                     questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer!)
+                    
                 }
             case option3:
                 if(correctAnswer == selectedQuestionDict["option3"]){
@@ -99,6 +106,7 @@ class ViewController: UIViewController {
                     questionField.text = "Correct!"
                 } else{
                     questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer!)
                 }
             case option4:
                 if(correctAnswer == selectedQuestionDict["option4"]){
@@ -106,11 +114,19 @@ class ViewController: UIViewController {
                     questionField.text = "Correct!"
                 } else{
                     questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer!)
+                    
                 }
             default: break
         }
         
         loadNextRoundWithDelay(seconds: 2)
+    }
+    
+    func correctWrongAnswer(correctAnswer: String) {
+        let rightAnswerMessage = "Correct Answer is: \(correctAnswer)"
+        correction.text = rightAnswerMessage
+        correction.isHidden = false
     }
     
     func nextRound() {
@@ -129,7 +145,7 @@ class ViewController: UIViewController {
         option2.isHidden = false
         option3.isHidden = false
         option4.isHidden = false
-        
+        correction.isHidden = true
         
         questionsAsked = 0
         correctQuestions = 0
