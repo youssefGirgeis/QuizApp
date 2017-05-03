@@ -74,12 +74,46 @@ class ViewController: UIViewController {
         
         let selectedQuestionDict = questionsAndAnswers.getQuestionAndAnswer()
         let correctAnswer = selectedQuestionDict["Answer"]
+        //print(correctAnswer)
         
-        if (sender === option2 &&  correctAnswer == "Franklin D. Roosevelt") || (sender === option2  && correctAnswer == "False") {
+       /* if (sender === option2 &&  correctAnswer == "Franklin D. Roosevelt") || (sender === option2  && correctAnswer == "False") {
             correctQuestions += 1
             questionField.text = "Correct!"
         } else {
             questionField.text = "Sorry, wrong answer!"
+        }*/
+        
+        switch sender{
+            
+            case option1:
+                if(correctAnswer == selectedQuestionDict["option1"]){
+                    correctQuestions += 1
+                    questionField.text = "Correct!"
+                } else{
+                    questionField.text = "Sorry, wrong answer!"
+                }
+            case option2:
+                if(correctAnswer == selectedQuestionDict["option2"]){
+                    correctQuestions += 1
+                    questionField.text = "Correct!"
+                } else{
+                    questionField.text = "Sorry, wrong answer!"
+                }
+            case option3:
+                if(correctAnswer == selectedQuestionDict["option3"]){
+                    correctQuestions += 1
+                    questionField.text = "Correct!"
+                } else{
+                    questionField.text = "Sorry, wrong answer!"
+                }
+            case option4:
+                if(correctAnswer == selectedQuestionDict["option4"]){
+                    correctQuestions += 1
+                    questionField.text = "Correct!"
+                } else{
+                    questionField.text = "Sorry, wrong answer!"
+                }
+            default: break
         }
         
         loadNextRoundWithDelay(seconds: 2)
