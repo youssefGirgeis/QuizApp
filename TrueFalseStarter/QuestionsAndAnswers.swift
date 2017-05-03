@@ -11,6 +11,7 @@ import GameKit
 class QuestionsAndAnswers{
     
     var indexOfSelectedQuestion: Int
+    var checkQuestions: [Int] // empty array used to check duplicate questions
 
     let trivia: [[String : String]] = [
         ["Question": "This was the only US President to serve more than two consecutive terms.", "option1": "George Washington", "option2": "Franklin D. Roosevelt", "option3": "Woodrow Wilson", "option4": "Andrew Jackson", "Answer": "Franklin D. Roosevelt"],
@@ -27,15 +28,22 @@ class QuestionsAndAnswers{
     
     init() {
         self.indexOfSelectedQuestion = 0
+        self.checkQuestions = []
     }
     
     
     func getQuestion() -> String{
-        
-        indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.count)
-        let questionDictionary = trivia[indexOfSelectedQuestion]
-        let question = questionDictionary["Question"]
-        return question!
+        var question: String = ""
+        repeat{
+            indexOfSelectedQuestion = GKRandomSource.sharedRandom().nextInt(upperBound: trivia.count)
+            if !(checkQuestions.contains(indexOfSelectedQuestion)){
+               
+                let questionDictionary = trivia[indexOfSelectedQuestion]
+                question = questionDictionary["Question"]!
+           }
+        }while(checkQuestions.contains(indexOfSelectedQuestion))
+        checkQuestions.append(indexOfSelectedQuestion)
+        return question
     }
     
     func getQuestionAndAnswer() -> [String: String]{

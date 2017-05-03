@@ -12,7 +12,7 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
-    let questionsPerRound = 4
+    let questionsPerRound = 10
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
@@ -57,8 +57,10 @@ class ViewController: UIViewController {
     
     func displayScore() {
         // Hide the answer buttons
-        //trueButton.isHidden = true
-        //falseButton.isHidden = true
+        option1.isHidden = true
+        option2.isHidden = true
+        option3.isHidden = true
+        option4.isHidden = true
         
         // Display play again button
         playAgainButton.isHidden = false
@@ -74,14 +76,6 @@ class ViewController: UIViewController {
         
         let selectedQuestionDict = questionsAndAnswers.getQuestionAndAnswer()
         let correctAnswer = selectedQuestionDict["Answer"]
-        //print(correctAnswer)
-        
-       /* if (sender === option2 &&  correctAnswer == "Franklin D. Roosevelt") || (sender === option2  && correctAnswer == "False") {
-            correctQuestions += 1
-            questionField.text = "Correct!"
-        } else {
-            questionField.text = "Sorry, wrong answer!"
-        }*/
         
         switch sender{
             
@@ -139,6 +133,7 @@ class ViewController: UIViewController {
         
         questionsAsked = 0
         correctQuestions = 0
+        questionsAndAnswers.checkQuestions = []
         nextRound()
     }
     
