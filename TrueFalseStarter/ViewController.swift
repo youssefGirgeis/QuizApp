@@ -12,6 +12,8 @@ import AudioToolbox
 
 class ViewController: UIViewController {
     
+    //var timer: Timer = Timer.scheduledTimer(withTimeInterval: 15, repeats: true, block: <#T##(Timer) -> Void#>)
+    
     let questionsPerRound = 10
     var questionsAsked = 0
     var correctQuestions = 0
@@ -19,6 +21,8 @@ class ViewController: UIViewController {
     
     
     var gameSound: SystemSoundID = 0
+    var correctAnswerSound: SystemSoundID = 1
+    var wrongAnswerSound: SystemSoundID = 2
     
     let questionsAndAnswers = QuestionsAndAnswers()
     
@@ -36,6 +40,9 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadGameStartSound()
+        loadWrongAnswerSound()
+        loadCorrectAnswerSound()
+
         // Start game
         playGameStartSound()
         displayQuestion()
@@ -85,34 +92,45 @@ class ViewController: UIViewController {
             
             case option1:
                 if(correctAnswer == selectedQuestionDict["option1"]){
+                    AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
                     questionField.text = "Correct!"
                 } else{
+                    AudioServicesPlaySystemSound(wrongAnswerSound)
                     questionField.text = "Sorry, wrong answer!"
                     correctWrongAnswer(correctAnswer: correctAnswer!)
                 }
             case option2:
                 if(correctAnswer == selectedQuestionDict["option2"]){
+                    AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
                     questionField.text = "Correct!"
+                    AudioServicesDisposeSystemSoundID(1)
                 } else{
+                    AudioServicesPlaySystemSound(wrongAnswerSound)
                     questionField.text = "Sorry, wrong answer!"
                     correctWrongAnswer(correctAnswer: correctAnswer!)
                     
                 }
             case option3:
                 if(correctAnswer == selectedQuestionDict["option3"]){
+                    AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
                     questionField.text = "Correct!"
+                    AudioServicesDisposeSystemSoundID(1)
                 } else{
+                    AudioServicesPlaySystemSound(wrongAnswerSound)
                     questionField.text = "Sorry, wrong answer!"
                     correctWrongAnswer(correctAnswer: correctAnswer!)
                 }
             case option4:
                 if(correctAnswer == selectedQuestionDict["option4"]){
+                    AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
                     questionField.text = "Correct!"
+                    AudioServicesDisposeSystemSoundID(1)
                 } else{
+                    AudioServicesPlaySystemSound(wrongAnswerSound)
                     questionField.text = "Sorry, wrong answer!"
                     correctWrongAnswer(correctAnswer: correctAnswer!)
                     
@@ -177,6 +195,18 @@ class ViewController: UIViewController {
     
     func playGameStartSound() {
         AudioServicesPlaySystemSound(gameSound)
+    }
+    
+    
+    func loadCorrectAnswerSound(){
+        let pathToSoundFile1 = Bundle.main.path(forResource: "CorrectAnswer", ofType: "wav")
+        let soundURL1 = URL(fileURLWithPath: pathToSoundFile1!)
+        AudioServicesCreateSystemSoundID(soundURL1 as CFURL, &correctAnswerSound)
+    }
+    func loadWrongAnswerSound() {
+        let pathToSoundFile2 = Bundle.main.path(forResource: "WrongAnswer", ofType: "wav")
+        let soundURL2 = URL(fileURLWithPath: pathToSoundFile2!)
+        AudioServicesCreateSystemSoundID(soundURL2 as CFURL, &wrongAnswerSound)
     }
 }
 
