@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
+    var selectedQuestionDict = ["": ""]
+    var correctAnswer: String = ""
     var timeLeft = 5 // for the timer
     var myTimer: Timer!
     
@@ -62,9 +64,6 @@ class ViewController: UIViewController {
     
     func displayQuestion() {
         
-        
-
-        
         if questionsAsked > 0 {      // this if statement is used to reset the timer, so it doesnt go fast after the first quetion.
             print(questionsAsked)
             myTimer.invalidate()
@@ -90,15 +89,22 @@ class ViewController: UIViewController {
         time.text = String(timeLeft)
         
         if timeLeft == 0 { // if timer is equal to zero then hide all disable all answers and show next question button
+            AudioServicesPlaySystemSound(wrongAnswerSound)
             myTimer.invalidate()
             option1.isEnabled = false
             option2.isEnabled = false
             option3.isEnabled = false
             option4.isEnabled = false
             
+            selectedQuestionDict = questionsAndAnswers.getQuestionAndAnswer()
+            correctAnswer = selectedQuestionDict["Answer"]!
+            correctWrongAnswer(correctAnswer: correctAnswer)
+            
+            
             if questionsAsked == 9 {  // if this is the last question then hide next question button and show score
                 nextQuestionButton.isHidden = true
                 questionsAsked += 1
+                //loadNextRoundWithDelay(seconds: 2)
                 nextRound()
             } else{
                 nextQuestionButton.isHidden = false
@@ -132,55 +138,62 @@ class ViewController: UIViewController {
         questionsAsked += 1
         
         
-        let selectedQuestionDict = questionsAndAnswers.getQuestionAndAnswer()
-        let correctAnswer = selectedQuestionDict["Answer"]
+        selectedQuestionDict = questionsAndAnswers.getQuestionAndAnswer()
+        correctAnswer = selectedQuestionDict["Answer"]!
         
+        option1.isEnabled = false
+        option2.isEnabled = false
+        option3.isEnabled = false
+        option4.isEnabled = false
         
         switch sender{
             
             case option1:
+                option1.isEnabled = true
                 if(correctAnswer == selectedQuestionDict["option1"]){
                     AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
-                    questionField.text = "Correct!"
+                    correctWrongAnswer(correctAnswer: "Correct!")
                 } else{
                     AudioServicesPlaySystemSound(wrongAnswerSound)
-                    questionField.text = "Sorry, wrong answer!"
-                    correctWrongAnswer(correctAnswer: correctAnswer!)
+                    //questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer)
                 }
             case option2:
+                option2.isEnabled = true
                 if(correctAnswer == selectedQuestionDict["option2"]){
                     AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
-                    questionField.text = "Correct!"
+                    correctWrongAnswer(correctAnswer: "Correct!")
                     AudioServicesDisposeSystemSoundID(1)
                 } else{
                     AudioServicesPlaySystemSound(wrongAnswerSound)
-                    questionField.text = "Sorry, wrong answer!"
-                    correctWrongAnswer(correctAnswer: correctAnswer!)
+                    //questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer)
                     
                 }
             case option3:
+                option3.isEnabled = true
                 if(correctAnswer == selectedQuestionDict["option3"]){
                     AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
-                    questionField.text = "Correct!"
-                    AudioServicesDisposeSystemSoundID(1)
+                    correctWrongAnswer(correctAnswer: "Correct!")
                 } else{
                     AudioServicesPlaySystemSound(wrongAnswerSound)
-                    questionField.text = "Sorry, wrong answer!"
-                    correctWrongAnswer(correctAnswer: correctAnswer!)
+                    //questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer)
                 }
             case option4:
+                option4.isEnabled = true
                 if(correctAnswer == selectedQuestionDict["option4"]){
                     AudioServicesPlaySystemSound(correctAnswerSound)
                     correctQuestions += 1
-                    questionField.text = "Correct!"
+                    correctWrongAnswer(correctAnswer: "Correct!")
                     AudioServicesDisposeSystemSoundID(1)
                 } else{
                     AudioServicesPlaySystemSound(wrongAnswerSound)
-                    questionField.text = "Sorry, wrong answer!"
-                    correctWrongAnswer(correctAnswer: correctAnswer!)
+                    //questionField.text = "Sorry, wrong answer!"
+                    correctWrongAnswer(correctAnswer: correctAnswer)
                     
                 }
             default: break
@@ -190,12 +203,21 @@ class ViewController: UIViewController {
     }
     
     func correctWrongAnswer(correctAnswer: String) {
-        let rightAnswerMessage = "Correct Answer is: \(correctAnswer)"
-        correction.text = rightAnswerMessage
+        correction.text = correctAnswer
+        if correctAnswer == "Correct!" {
+            correction.textColor = UIColor(red: 47/255.0, green: 179/255.6, blue: 171/255.0, alpha: 1.0)
+        } else {
+            correction.textColor = UIColor(red: 254/255.0, green: 168/255.6, blue: 41/255.0, alpha: 1.0)
+        }
         correction.isHidden = false
     }
     
     func nextRound() {
+        
+        option1.isEnabled = true
+        option2.isEnabled = true
+        option3.isEnabled = true
+        option4.isEnabled = true
         
         if questionsAsked == questionsPerRound {
             // Game is over
@@ -218,11 +240,14 @@ class ViewController: UIViewController {
     
     @IBAction func playAgain() {
         // Show the answer buttons
+        timeLeft = 5
         option1.isHidden = false
         option2.isHidden = false
         option3.isHidden = false
         option4.isHidden = false
         correction.isHidden = true
+        timeLeftLabel.isHidden = false
+        time.isHidden = false
         
         questionsAsked = 0
         correctQuestions = 0
