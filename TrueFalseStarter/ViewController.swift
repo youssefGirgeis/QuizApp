@@ -18,6 +18,8 @@ class ViewController: UIViewController {
     var questionsAsked = 0
     var correctQuestions = 0
     var indexOfSelectedQuestion: Int = 0
+    var timeLeft = 5 // for the timer
+    var myTimer: Timer!
     
     
     var gameSound: SystemSoundID = 0
@@ -34,6 +36,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var option2: UIButton!
     @IBOutlet weak var option3: UIButton!
     @IBOutlet weak var option4: UIButton!
+    @IBOutlet weak var time: UILabel!
+    @IBOutlet weak var nextQuestionButton: UIButton!
+    @IBOutlet weak var timeLeftLabel: UILabel!
+    
+
     
     
 
@@ -54,6 +61,16 @@ class ViewController: UIViewController {
     }
     
     func displayQuestion() {
+        
+        
+
+        
+        if questionsAsked > 0 {      // this if statement is used to reset the timer, so it doesnt go fast after the first quetion.
+            print(questionsAsked)
+            myTimer.invalidate()
+        }
+
+        
         questionField.text = questionsAndAnswers.getQuestion()
         var questionDictionary = questionsAndAnswers.getQuestionAndAnswer()
         option1.setTitle(questionDictionary["option1"], for: UIControlState.normal)
@@ -61,7 +78,33 @@ class ViewController: UIViewController {
         option3.setTitle(questionDictionary["option3"], for: UIControlState.normal)
         option4.setTitle(questionDictionary["option4"], for: UIControlState.normal)
         playAgainButton.isHidden = true
+        nextQuestionButton.isHidden = true
         correction.isHidden = true
+        
+        timeLeft = 5
+        myTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ViewController.timerRunning), userInfo: nil, repeats: true)
+    }
+    
+    func timerRunning() {
+        timeLeft -= 1
+        time.text = String(timeLeft)
+        
+        if timeLeft == 0 { // if timer is equal to zero then hide all disable all answers and show next question button
+            myTimer.invalidate()
+            option1.isEnabled = false
+            option2.isEnabled = false
+            option3.isEnabled = false
+            option4.isEnabled = false
+            
+            if questionsAsked == 9 {  // if this is the last question then hide next question button and show score
+                nextQuestionButton.isHidden = true
+                questionsAsked += 1
+                nextRound()
+            } else{
+                nextQuestionButton.isHidden = false
+            }
+        }
+        
     }
     
     func displayScore() {
@@ -73,7 +116,10 @@ class ViewController: UIViewController {
         
         // Display play again button
         playAgainButton.isHidden = false
+        nextQuestionButton.isHidden = true
         correction.isHidden = true
+        timeLeftLabel.isHidden = true
+        time.isHidden = true
         
         questionField.text = "Way to go!\nYou got \(correctQuestions) out of \(questionsPerRound) correct!"
         
@@ -81,6 +127,8 @@ class ViewController: UIViewController {
 
     @IBAction func checkAnswer(_ sender: UIButton) {
         // Increment the questions asked counter
+        
+        myTimer.invalidate()
         questionsAsked += 1
         
         
@@ -148,6 +196,7 @@ class ViewController: UIViewController {
     }
     
     func nextRound() {
+        
         if questionsAsked == questionsPerRound {
             // Game is over
             displayScore()
@@ -155,6 +204,16 @@ class ViewController: UIViewController {
             // Continue game
             displayQuestion()
         }
+    }
+    
+    
+    @IBAction func nextQuestion() {
+        questionsAsked += 1
+        option1.isEnabled = true
+        option2.isEnabled = true
+        option3.isEnabled = true
+        option4.isEnabled = true
+        nextRound()
     }
     
     @IBAction func playAgain() {
@@ -184,7 +243,9 @@ class ViewController: UIViewController {
         // Executes the nextRound method at the dispatch time on the main queue
         DispatchQueue.main.asyncAfter(deadline: dispatchTime) {
             self.nextRound()
+            
         }
+        
     }
     
     func loadGameStartSound() {

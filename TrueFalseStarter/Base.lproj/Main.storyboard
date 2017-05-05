@@ -41,7 +41,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="center" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="The Titanic departed from the United Kingdom, where was it supposed to arrive?" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="7" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I3V-ih-1Ky">
-                                <rect key="frame" x="16" y="45" width="288" height="58"/>
+                                <rect key="frame" x="16" y="78" width="288" height="58"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="58" id="wnm-SX-VjX"/>
                                 </constraints>
@@ -126,17 +126,41 @@
                                 <color key="textColor" red="0.9994240403175354" green="0.68643142854915096" blue="0.34217467393324819" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Time Left:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="v39-B6-j6M">
+                                <rect key="frame" x="32" y="28" width="77" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="1" green="0.46591405211722792" blue="0.42532032581329082" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="15" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nq7-tj-ty6">
+                                <rect key="frame" x="111" y="28" width="29" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" red="0.99949556589126587" green="0.46548968553543091" blue="0.42351117730140686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AVX-EU-8x8">
+                                <rect key="frame" x="20" y="419" width="280" height="46"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
+                                <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <state key="normal" title="Next Question"/>
+                                <connections>
+                                    <action selector="nextQuestion" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Tn-BD-YIc"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.031372549019607843" green="0.16862745098039217" blue="0.24313725490196078" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="I3V-ih-1Ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="25" id="3Vl-oX-GFq"/>
-                            <constraint firstItem="ZeG-w8-sG5" firstAttribute="top" secondItem="I3V-ih-1Ky" secondAttribute="bottom" constant="55" id="40N-gU-7QK"/>
+                            <constraint firstItem="I3V-ih-1Ky" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="58" id="3Vl-oX-GFq"/>
+                            <constraint firstItem="ZeG-w8-sG5" firstAttribute="top" secondItem="I3V-ih-1Ky" secondAttribute="bottom" constant="22" id="40N-gU-7QK"/>
                             <constraint firstItem="ZeG-w8-sG5" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="20" id="6iy-7O-wxq"/>
                             <constraint firstItem="URw-6N-ffC" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="Ckh-Dv-l0j"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="K17-uy-MvB" secondAttribute="bottom" constant="102" id="Hh5-Rx-6Br"/>
                             <constraint firstAttribute="trailing" secondItem="ZeG-w8-sG5" secondAttribute="trailing" constant="20" id="PWh-T6-rll"/>
                             <constraint firstItem="637-0H-mmy" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="VPM-AD-MCm"/>
                             <constraint firstItem="RUy-cK-AGc" firstAttribute="leading" secondItem="K17-uy-MvB" secondAttribute="leading" id="amH-A5-Y3c"/>
+                            <constraint firstItem="v39-B6-j6M" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="16" id="bOb-lC-dlM"/>
                             <constraint firstItem="RUy-cK-AGc" firstAttribute="trailing" secondItem="K17-uy-MvB" secondAttribute="trailing" id="bja-DE-JQy"/>
                             <constraint firstItem="iHA-zd-GQi" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="cRL-QZ-Zwm"/>
                             <constraint firstItem="iHA-zd-GQi" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailingMargin" constant="-4" id="cVc-5w-LBA"/>
@@ -146,6 +170,7 @@
                             <constraint firstAttribute="trailing" secondItem="I3V-ih-1Ky" secondAttribute="trailing" constant="16" id="jjo-Zb-gPk"/>
                             <constraint firstItem="URw-6N-ffC" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="l8J-K2-Vmz"/>
                             <constraint firstItem="URw-6N-ffC" firstAttribute="top" secondItem="637-0H-mmy" secondAttribute="bottom" constant="25" id="p2a-Ph-SzI"/>
+                            <constraint firstItem="v39-B6-j6M" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" symbolic="YES" id="pAv-cx-6Vd"/>
                             <constraint firstItem="iHA-zd-GQi" firstAttribute="top" secondItem="URw-6N-ffC" secondAttribute="bottom" constant="25" id="usp-7g-bpl"/>
                             <constraint firstItem="K17-uy-MvB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="4" id="wDF-S3-mNb"/>
                             <constraint firstItem="637-0H-mmy" firstAttribute="top" secondItem="ZeG-w8-sG5" secondAttribute="bottom" constant="25" id="xS5-2V-5D3"/>
@@ -155,12 +180,15 @@
                     <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
                     <connections>
                         <outlet property="correction" destination="RUy-cK-AGc" id="tbq-jc-TRU"/>
+                        <outlet property="nextQuestionButton" destination="AVX-EU-8x8" id="R8z-RD-VhN"/>
                         <outlet property="option1" destination="ZeG-w8-sG5" id="FMw-BP-LIu"/>
                         <outlet property="option2" destination="637-0H-mmy" id="X6y-m7-l9n"/>
                         <outlet property="option3" destination="URw-6N-ffC" id="f4B-AS-yhn"/>
                         <outlet property="option4" destination="iHA-zd-GQi" id="hfe-NW-0i7"/>
                         <outlet property="playAgainButton" destination="K17-uy-MvB" id="0Bx-Cm-ye0"/>
                         <outlet property="questionField" destination="I3V-ih-1Ky" id="7UI-o2-ATi"/>
+                        <outlet property="time" destination="nq7-tj-ty6" id="rqn-72-C6f"/>
+                        <outlet property="timeLeftLabel" destination="v39-B6-j6M" id="kEk-VE-04l"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
