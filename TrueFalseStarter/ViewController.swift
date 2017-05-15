@@ -20,7 +20,7 @@ class ViewController: UIViewController {
     var indexOfSelectedQuestion: Int = 0
     var selectedQuestionDict = ["": ""]
     var correctAnswer: String = ""
-    var timeLeft = 5 // for the timer
+    var timeLeft = 15 // for the timer
     var myTimer: Timer!
     
     
@@ -34,13 +34,13 @@ class ViewController: UIViewController {
     @IBOutlet weak var correction: UILabel! // to show the correct answer if the user chose the wrong answer
     @IBOutlet weak var questionField: UILabel!
     @IBOutlet weak var playAgainButton: UIButton!
-    @IBOutlet weak var option1: UIButton!
-    @IBOutlet weak var option2: UIButton!
-    @IBOutlet weak var option3: UIButton!
-    @IBOutlet weak var option4: UIButton!
-    @IBOutlet weak var time: UILabel!
-    @IBOutlet weak var nextQuestionButton: UIButton!
-    @IBOutlet weak var timeLeftLabel: UILabel!
+    @IBOutlet weak var option1: UIButton! // answer 1
+    @IBOutlet weak var option2: UIButton! // answer 2
+    @IBOutlet weak var option3: UIButton! // answer 3
+    @IBOutlet weak var option4: UIButton! // answer 4
+    @IBOutlet weak var time: UILabel! // label (Time)
+    @IBOutlet weak var nextQuestionButton: UIButton! // next question button
+    @IBOutlet weak var timeLeftLabel: UILabel! // time left in numbers
     
 
     
@@ -80,7 +80,7 @@ class ViewController: UIViewController {
         nextQuestionButton.isHidden = true
         correction.isHidden = true
         
-        timeLeft = 5
+        timeLeft = 15
         myTimer = Timer.scheduledTimer(timeInterval: 1.0, target: self, selector: #selector(ViewController.timerRunning), userInfo: nil, repeats: true)
     }
     
